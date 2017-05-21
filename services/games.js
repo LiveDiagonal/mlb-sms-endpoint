@@ -29,8 +29,9 @@ module.exports = {
 			games.forEach(function (game){
 				if (game.home_team_name.toLowerCase() == team.toLowerCase() || game.home_code.toLowerCase() == team.toLowerCase() || game.home_name_abbrev.toLowerCase() == team.toLowerCase() ||  game.away_team_name.toLowerCase() == team.toLowerCase() || game.away_code.toLowerCase() == team.toLowerCase() || game.away_name_abbrev.toLowerCase() == team.toLowerCase()) {
 					gameFound = true;
-					var status = (game.status.top_inning == "Y" ? "Top" : "Bot") + " " + game.status.inning + " S:" + game.status.s + " B:" + game.status.b + " O:" + game.status.o + ", " +
-						game.home_name_abbrev + " R:" + game.linescore.r.home + " H:" + game.linescore.h.home + " E:" + game.linescore.e.home + ", " +
+					var status = game.game_media.media.title + "\n" +
+						(game.status.top_inning == "Y" ? "Top" : "Bot") + " " + game.status.inning + " S:" + game.status.s + " B:" + game.status.b + " O:" + game.status.o + "\n" +
+						game.home_name_abbrev + " R:" + game.linescore.r.home + " H:" + game.linescore.h.home + " E:" + game.linescore.e.home + "\n" +
 					  game.away_name_abbrev + " R:" + game.linescore.r.away + " H:" + game.linescore.h.away + " E:" + game.linescore.e.away;
 
 					callback(true, status)
