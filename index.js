@@ -3,7 +3,7 @@ var app = express()
 
 var games = require('./services/games')
 
-app.set('port', (process.env.PORT || 5001))
+app.set('port', (process.env.PORT || 5000))
 
 app.get('/execute', function(request, response) {
 	var callback = function (status, message) {
