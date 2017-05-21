@@ -32,7 +32,8 @@ var parseCommand = function (command) {
 
 
 var commandFns = {
-  "game": games.todaysGame
+  "game": games.todaysGame,
+  "score": games.score
 }
 
 var executeCommand = function (commandObj, callback) {
