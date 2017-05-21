@@ -3,7 +3,7 @@ var app = express();
 
 var games = require('./services/games');
 
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 5001));
 
 app.get('/game', function(request, response) {
 	var callback = function (status, message) {
@@ -13,7 +13,7 @@ app.get('/game', function(request, response) {
   		});
 	}
 
-  	games.todaysGame(request.query.team, callback);	
+  games.todaysGame(request.query.team, callback);	
 });
 
 app.listen(app.get('port'), function() {

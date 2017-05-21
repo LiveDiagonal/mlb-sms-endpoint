@@ -1,11 +1,11 @@
-var request = require('request')
+var request = require('request');
 
 var date = new Date();
 var url = "http://gdx.mlb.com/components/game/mlb/year_" + date.getFullYear() + "/month_" + pad(date.getMonth() + 1) + "/day_" + pad(date.getDate()) + "/master_scoreboard.json"
 
 
 module.exports = {
-	todaysGame(team, callback) {
+	todaysGame(team = "", callback) {
 		request(url, function (error, response, body) {
 			var games = JSON.parse(body).data.games.game;
 
