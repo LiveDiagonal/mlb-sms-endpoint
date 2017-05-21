@@ -49,7 +49,7 @@ module.exports = {
 				callback(false, "Game not found for " + team + ".")
 		})			
 	},
-	scorediff: function (parameters, callback) {
+	diff: function (parameters, callback) {
 		var team = parameters[0] || "";
 
 		request(url, function (error, response, body) {
@@ -58,8 +58,6 @@ module.exports = {
 			gameFound = false;
 			games.forEach(function (game){
 				var gameObj = new Game(game)
-
-				console.log(game.linescore)
 
 				if(gameObj.hasTeam(team)) {
 					gameFound = true;
