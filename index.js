@@ -10,12 +10,22 @@ app.get('/game', function(request, response) {
 		response.json({
 			success: status,
   			message: message
-  		});
+  		})
 	}
 
-  games.todaysGame(request.query.team, callback);	
-});
+  var commandObj = parseCommand(request.query.command)
+  games.todaysGame(commandObj.command, callback);	
+})
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
-});
+})
+
+var parseCommand = function (command) {
+  var matches = command.toLowerCase().match(/(\w+)(.*)/)
+  
+  return {
+    command: (matches.length > 1) ? matches[1] : null,
+    parameters: (matches.length > 2) ? matches[2] : null,
+  }
+}
