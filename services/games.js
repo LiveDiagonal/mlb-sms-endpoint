@@ -11,7 +11,7 @@ module.exports = {
 			games.forEach(function (game){
 				if (game.home_team_name.toLowerCase() == team.toLowerCase() || game.home_code.toLowerCase() == team.toLowerCase() || game.home_name_abbrev.toLowerCase() == team.toLowerCase() ||  game.away_team_name.toLowerCase() == team.toLowerCase() || game.away_code.toLowerCase() == team.toLowerCase() || game.away_name_abbrev.toLowerCase() == team.toLowerCase()) {
 					gameFound = true;
-					callback(true, game.game_media.media.title + ", " + game.time + " " + game.time_zone) ;
+					callback(true, game.game_media.media.title + "\n" + game.time + " " + game.time_zone) ;
 				}
 			})
 
