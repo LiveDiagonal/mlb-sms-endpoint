@@ -49,7 +49,7 @@ module.exports = {
 				callback(false, "Game not found for " + team + ".")
 		})			
 	},
-	diff: function (parameters, callback) {
+	scoreDifferential: function (parameters, callback) {
 		var team = parameters[0] || "";
 
 		request(url, function (error, response, body) {
