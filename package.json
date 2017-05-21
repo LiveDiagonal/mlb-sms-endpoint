@@ -13,9 +13,5 @@
     "express": "^4.15.3",
     "request": "^2.81.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/LiveDiagonal/mlb-sms-endpoint"
-  },
   "license": "MIT"
 }
