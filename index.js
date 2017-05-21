@@ -1,9 +1,9 @@
-var express = require('express');
-var app = express();
+var express = require('express')
+var app = express()
 
-var games = require('./services/games');
+var games = require('./services/games')
 
-app.set('port', (process.env.PORT || 5001));
+app.set('port', (process.env.PORT || 5001))
 
 app.get('/execute', function(request, response) {
 	var callback = function (status, message) {
@@ -11,7 +11,7 @@ app.get('/execute', function(request, response) {
       success: status,
       message: message
     })
-	}
+	}  
 
   executeCommand(parseCommand(request.query.command), callback)
 })
@@ -21,7 +21,7 @@ app.listen(app.get('port'), function() {
 })
 
 
-var parseCommand = function (command = "") {
+var parseCommand = function (command) {
   var matches = command.toLowerCase().match(/(\w+)\s*(.*)/)
   
   return {
@@ -38,7 +38,7 @@ var commandFns = {
 var executeCommand = function (commandObj, callback) {
   commandFn = commandFns[commandObj.command]
 
-  if (commandFn != null) {
+  if (commandFn !== null) {
     commandFn(commandObj.parameters, callback)
   } else {
     callback(false, "Command " + commandObj.command + " not found.")
