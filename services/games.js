@@ -1,4 +1,5 @@
-var request = require('request');
+var request = require('request')
+var Game = require('../lib/game')
 
 module.exports = {
 	todaysGame: function (parameters, callback) {
@@ -9,9 +10,12 @@ module.exports = {
 
 			gameFound = false;
 			games.forEach(function (game){
-				if (game.home_team_name.toLowerCase() == team.toLowerCase() || game.home_code.toLowerCase() == team.toLowerCase() || game.home_name_abbrev.toLowerCase() == team.toLowerCase() ||  game.away_team_name.toLowerCase() == team.toLowerCase() || game.away_code.toLowerCase() == team.toLowerCase() || game.away_name_abbrev.toLowerCase() == team.toLowerCase()) {
+				var gameObj = new Game(game)
+				
+				if(gameObj.hasTeam(team)) {
 					gameFound = true;
-					callback(true, game.game_media.media.title + "\n" + game.time + " " + game.time_zone) ;
+
+					callback(true, gameObj.title() + "\n" + game.time + " " + game.time_zone) ;
 				}
 			})
 
@@ -27,12 +31,15 @@ module.exports = {
 
 			gameFound = false;
 			games.forEach(function (game){
-				if (game.home_team_name.toLowerCase() == team.toLowerCase() || game.home_code.toLowerCase() == team.toLowerCase() || game.home_name_abbrev.toLowerCase() == team.toLowerCase() ||  game.away_team_name.toLowerCase() == team.toLowerCase() || game.away_code.toLowerCase() == team.toLowerCase() || game.away_name_abbrev.toLowerCase() == team.toLowerCase()) {
+				var gameObj = new Game(game)
+
+				if(gameObj.hasTeam(team)) {
 					gameFound = true;
-					var status = game.game_media.media.title + "\n" +
-						(game.status.top_inning == "Y" ? "Top" : "Bot") + " " + game.status.inning + " S:" + game.status.s + " B:" + game.status.b + " O:" + game.status.o + "\n" +
-						game.home_name_abbrev + " R:" + game.linescore.r.home + " H:" + game.linescore.h.home + " E:" + game.linescore.e.home + "\n" +
-					  game.away_name_abbrev + " R:" + game.linescore.r.away + " H:" + game.linescore.h.away + " E:" + game.linescore.e.away;
+					
+					var status = gameObj.title() + "\n" +
+					gameObj.currentInning() + " B:" + game.status.b + " O:" + game.status.o + "\n" +
+					game.home_name_abbrev + " R:" + game.linescore.r.home + " H:" + game.linescore.h.home + " E:" + game.linescore.e.home + "\n" +
+					game.away_name_abbrev + " R:" + game.linescore.r.away + " H:" + game.linescore.h.away + " E:" + game.linescore.e.away;
 
 					callback(true, status)
 				}
@@ -40,7 +47,31 @@ module.exports = {
 
 			if (!gameFound)
 				callback(false, "Game not found for " + team + ".")
-		});			
+		})			
+	},
+	scorediff: function (parameters, callback) {
+		var team = parameters[0] || "";
+
+		request(url, function (error, response, body) {
+			var games = JSON.parse(body).data.games.game;
+
+			gameFound = false;
+			games.forEach(function (game){
+				var gameObj = new Game(game)
+
+				console.log(game.linescore)
+
+				if(gameObj.hasTeam(team)) {
+					gameFound = true;
+					
+					var message = gameObj.title() + "\n"	+ gameObj.currentInning() + "\n" +gameObj.scoreDifferential()		
+					callback(true, message)
+				}
+			})
+
+			if (!gameFound)
+				callback(false, "Game not found for " + team + ".")
+		})			
 	}
 }
 
@@ -50,3 +81,4 @@ var url = "http://gdx.mlb.com/components/game/mlb/year_" + date.getFullYear() + 
 function pad(n){
 	return n > 9 ? "" + n: "0" + n;
 }
+
