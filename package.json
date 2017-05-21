@@ -1,5 +1,5 @@
 {
-  "name": "MLB SMS Endpoint",
+  "name": "mlb-whim-endpoint",
   "version": "0.0.1",
   "description": "Live Diagonal SMS Dumbphone Relay Tool endpoint for retreiving MLB scores, standings and more.",
   "engines": {
