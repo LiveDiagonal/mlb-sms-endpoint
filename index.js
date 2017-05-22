@@ -6,11 +6,9 @@ var games = require('./services/games')
 app.set('port', (process.env.PORT || 5000))
 
 app.get('/execute', function(request, response) {
-	var callback = function (status, message) {
-		response.json({
-      success: status,
-      message: message
-    })
+	// Refactor w/ Promise
+  var callback = function (status, message) {
+		response.send(message)
 	}  
 
   executeCommand(parseCommand(request.query.command), callback)
