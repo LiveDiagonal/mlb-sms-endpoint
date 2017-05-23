@@ -9,12 +9,12 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "request": "^2.81.0",
     "request-promise": "^4.2.1"
   },
   "license": "MIT",
   "devDependencies": {
-    "dotenv": "^4.0.0"
   }
 }
